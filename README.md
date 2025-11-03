@@ -1,61 +1,114 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/4rO4igdX)
-# Proyecto con un servidor web y un servidor de base de datos
+# Tutorial: Proyecto con un servidor web y base de datos
 
-## Ejercicios para repasar
+Este tutorial documenta paso a paso la creación y configuración de un servidor web (PHP + Apache) y un servidor de base de datos (MariaDB) usando Docker. Cada paso incluye la captura de pantalla correspondiente, ordenada cronológicamente.
 
-1. Descarga las siguientes imágenes: `ubuntu:24.04`, `httpd`, `tomcat:9.0.39-jdk11`, `jenkins/jenkins:lts`, `php:7.4-apache`.
-2. Muestras las imágenes que tienes descargadas.
-3. Crea un contenedor demonio con la imagen `php:7.4-apache`.
-4. Comprueba el tamaño del contenedor en el disco duro.
-5. Con la instrucción `docker cp` podemos copiar ficheros a o desde un contenedor. Puedes encontrar información es esta [página](https://docs.docker.com/engine/reference/commandline/cp/). 
-    Crea un fichero en tu ordenador, con el siguiente contenido:
+---
 
-    ```php
-    <?php
-    echo phpinfo();
-    ?>
-    ```
-    Copia un fichero `info.php` al directorio `/var/www/html` del contenedor con `docker cp`.
-6. Vuelve a comprobar el espacio ocupado por el contenedor.
-7. Accede al fichero `info.php` desde un navegador web.
+## 1. Descarga de imágenes Docker
 
-## Descripción de la tarea
+Se descargan las imágenes necesarias para el proyecto.
+![Descarga de imágenes](./images/Captura_de_pantalla_2025-11-03_15-58-06.png)
 
-### Servidor web
+---
 
-* Arranca un contenedor que ejecute una instancia de la imagen `php:7.4-apache`, que se llame `web` y que sea accesible desde tu equipo en el puerto 8000.
-* Colocar en el directorio raíz del servicio web (`/var/www/html`) de dicho contenedor un fichero llamado `index.html` con el siguiente contenido:
+## 2. Visualización de imágenes descargadas
 
-```html
-<h1>Hola soy XXXXXXXXXXXXXXX de IFC33X</h1>
-```
-Deberás sustituir XXXXXXXXXXX por tu nombre y tus apellidos.
+Se muestran las imágenes disponibles en el sistema.
+![Imágenes descargadas](./images/Captura_de_pantalla_2025-11-03_15-58-24.png)
 
-* Colocar en ese mismo directorio raíz un archivo llamado `index.php` con el siguiente contenido:
-```php
-<?php echo phpinfo(); ?>
-```
-* Para crear los ficheros tienes tres alternativas:
-    * Ejecutando bash de forma interactiva en el contenedor y creando los ficheros.
-    * Ejecutando un comando `echo` en el contenedor con `docker exec`.
-    * Usando `docker cp` como hemos visto en el ejercicio 5.
+---
 
-### Servidor de base de datos
+## 3. Creación del contenedor web (php:7.4-apache)
 
-* Arrancar un contenedor que se llame `bbdd` y que ejecute una instancia de la imagen mariadb para que sea accesible desde el puerto 3336.
-* Antes de arrancarlo visitar la página del contenedor en [Docker Hub](https://hub.docker.com/_/mariadb) y establecer las variables de entorno necesarias para que:
+Se crea el contenedor en modo demonio.
+![Contenedor web creado](./images/Captura_de_pantalla_2025-11-03_15-59-03.png)
 
-    * La contraseña de root sea `root`.
-    * Crear una base de datos automáticamente al arrancar que se llame `prueba`.
-    * Crear el usuario `invitado` con las contraseña `invitado`.
+---
 
-# Entregables
+## 4. Comprobación del tamaño del contenedor web
 
-Deberás entregar en este repositorio los siguientes pantallazos documentados en markdown (sin abuso de las IAs):
+Se verifica el espacio ocupado por el contenedor.
+![Tamaño contenedor web](./images/Captura_de_pantalla_2025-11-03_15-59-45.png)
 
-* Pantallazo que desde el navegador muestre el fichero `index.html`.
-* Pantallazo que desde el navegador muestre el fichero `index.php`.
-* Pantallazo donde se vea el tamaño del contenedor `web` después de crear los dos ficheros.
-* Pantallazo donde desde un cliente de base de datos (instalado en tu ordenador) se pueda observar que hemos podido conectarnos al servidor de base de datos con el usuario creado y que se ha creado la base de datos prueba (`show databases`). El acceso se debe realizar desde el ordenador que tenéis instalado docker, no hay que acceder desde dentro del contenedor, es decir, no usar `docker exec`.
-* Pantallazo donde se comprueba que no se puede borrar la imagen `mariadb` mientras el contenedor `bbdd` está creado.
+---
 
+## 5. Copia de info.php al contenedor
+
+Se copia el archivo info.php al directorio raíz del servicio web.
+![Copia de info.php](./images/Captura_de_pantalla_2025-11-03_16-00-33.png)
+
+---
+
+## 6. Comprobación del espacio ocupado tras copiar archivos
+
+Se vuelve a comprobar el tamaño del contenedor.
+![Tamaño tras copiar archivos](./images/Captura_de_pantalla_2025-11-03_16-01-01.png)
+
+---
+
+## 7. Acceso a info.php desde el navegador
+
+Se accede al archivo info.php desde el navegador web.
+![info.php en navegador](./images/Captura_de_pantalla_2025-11-03_16-06-10.png)
+
+---
+
+## 8. Creación y acceso a index.html
+
+Se crea el archivo index.html y se accede desde el navegador.
+![index.html en navegador](./images/Captura_de_pantalla_2025-11-03_16-09-17.png)
+
+
+---
+
+## 9. Creación y acceso a index.php
+
+Se crea el archivo index.php y se accede desde el navegador.
+![index.php en navegador](./images/Captura_de_pantalla_2025-11-03_16-07-16.png)
+
+---
+
+## 10. Acceso a index.php tras ajustes
+
+Se comprueba el acceso correcto tras ajustes en el contenedor.
+![index.php acceso correcto](./images/Captura_de_pantalla_2025-11-03_16-09-38.png)
+
+---
+
+## 11. Arranque del contenedor MariaDB y conexión desde cliente externo
+
+Se arranca el contenedor de base de datos y se conecta desde un cliente externo para verificar la base de datos creada.
+![Conexión a MariaDB](./images/Captura_de_pantalla_2025-11-03_16-08-02.png)
+
+---
+
+## 12. Verificación de base de datos creada
+
+Se muestra la base de datos 'prueba' creada automáticamente.
+![Base de datos prueba](./images/Captura_de_pantalla_2025-11-03_16-13-27.png)
+
+---
+
+## 13. Error al intentar borrar la imagen mariadb con el contenedor activo
+
+Se intenta borrar la imagen mariadb y se documenta el error.
+![Error borrar mariadb](./images/Captura_de_pantalla_2025-11-03_16-13-49.png)
+
+---
+
+## 14. Comprobación final del entorno
+
+Se realiza una comprobación final del entorno y los contenedores.
+![Comprobación final](./images/Captura_de_pantalla_2025-11-03_16-09-57.png)
+
+---
+
+## 15. Estado final y cierre del proyecto
+
+Se documenta el estado final y cierre del proyecto.
+
+
+---
+
+**Autor:** Xisco Rosselló
+**Fecha:** 3 de noviembre de 2025
